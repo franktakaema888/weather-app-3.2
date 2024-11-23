@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export default function Weather() {
 
+  const api = import.meta.env.VITE_SOME_API;
   // Initialise state variables
   const [cityName, setCityName] = useState("");
   const [cityData, setCityData] = useState({});
@@ -11,13 +12,13 @@ export default function Weather() {
   const fetchWeatherData = async () => {
     try {
       // To obtain latitude and longtitude of location
-      const cityResponse = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=`)
+      const cityResponse = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`)
       // console.log(cityResponse.data);
       const cityGeoData = cityResponse.data[0];
 
       // Get the weather data
-      // const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${cityGeoData.lat}&lon=${cityGeoData.lon}&appid=`)
-      const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityGeoData.lat}&lon=${cityGeoData.lon}&appid=`)
+      // const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${cityGeoData.lat}&lon=${cityGeoData.lon}&appid=${api}&units=metric`)
+      const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityGeoData.lat}&lon=${cityGeoData.lon}&appid=${api}&units=metric`)
       // console.log(weatherResponse.data);
       setCityData(weatherResponse.data);
 
